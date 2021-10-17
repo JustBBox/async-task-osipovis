@@ -1,15 +1,7 @@
 module.exports = function (Homework) {
-    function getter(fn, a, b, c, d) {
-        switch (arguments.length) {
-            case 1:
-                return new Promise(resolve => (fn(resolve)));
-            case 2:
-                return new Promise(resolve => (fn(a, resolve)));
-            case 3:
-                return new Promise(resolve => (fn(a, b, resolve)));
-            default:
-                return new Promise(resolve => (fn(a, b, c, d, resolve)));
-        }
+    function getter(...args) {
+        let fn = args.shift();
+        return new Promise(resolve => (fn(...args, resolve)));
     }
     return async (asyncArray, fn, initialValue, cb) => {
         let length_ = await getter(asyncArray.length);
