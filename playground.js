@@ -180,7 +180,7 @@ async function reduce(asyncArray, fn, initialValue, cb) {
         while (conditionStop) {
             let cur = await getter(asyncArray.get, index);
             acc = await getter(fn, acc, cur, index, asyncArray);
-            index++;
+            index = await getter(Homework.add, index, 1);
             conditionStop = await getter(Homework.less, index, length_);
         }
         cb(acc);
